@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMA Marketing — ACA Live Call Script</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+ 
+ <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f2d4a;
+      --navy-light: #1a3f63;
+      --accent: #2196f3;
+      --accent-hover: #1976d2;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --green-light: #f0fdf4;
+      --amber: #d97706;
+      --amber-bg: #fef3c7;
+      --amber-light: #fffbeb;
+      --red: #dc2626;
+      --red-bg: #fee2e2;
+      --red-light: #fef2f2;
+      --sidebar-w: 260px;
+      --bg: #ffffff;
+      --bg2: #f8fafc;
+      --bg3: #f1f5f9;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --muted: #94a3b8;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --bg2: #1e293b;
+        --bg3: #334155;
+        --border: #334155;
+        --border-light: #1e293b;
+        --text: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --muted: #64748b;
+        --green-bg: #164e63;
+        --amber-bg: #78350f;
+        --red-bg: #7f1d1d;
+        --green-light: #0f3f3f;
+        --amber-light: #5c3d2e;
+        --red-light: #5c2e2e;
+      }
+      .plan-card { background: #1e3a5f !important; }
+      .plan-item { background: #0f2d4a !important; border-color: #1a3f63 !important; }
+      .plan-item input { color: #e0ecf8 !important; }
+      .plan-card h3 { color: #e0ecf8 !important; }
+    }
+
+    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; background: var(--bg2); color: var(--text); font-size: 14px; line-height: 1.5; }
+
+    #app {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg2);
+    }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3f63 100%);
+      color: #e0ecf8;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-md);
+    }
+    .sidebar-header {
+      padding: 24px 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.1);
+    }
+    .sidebar-header h1 { 
+      font-size: 16px; 
+      font-weight: 700; 
+      color: #fff; 
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .sidebar-header p  { 
+      font-size: 12px; 
+      color: #a8c5e0; 
+      margin-top: 2px; 
+    }
+
+    .new-call-btn {
+      margin: 12px;
+      background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: calc(100% - 24px);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.25);
+    }
+    .new-call-btn:hover { 
+      background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .sidebar-section {
+      padding: 12px 16px 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #5b8aad;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .step-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      margin: 4px 8px;
+      cursor: pointer;
+      font-size: 12px;
+      color: #a8c5e0;
+      border-left: 3px solid transparent;
+      border-radius: 8px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .step-btn:hover  { 
+      background: rgba(255,255,255,0.08); 
+      color: #fff; 
+      padding-left: 12px;
+    }
+    .step-btn.active { 
+      background: rgba(33,150,243,0.25); 
+      color: #fff; 
+      border-left-color: #2196f3;
+      font-weight: 600;
+    }
+    .step-btn.done   { 
+      color: #7ba3c0; 
+    }
+
+    .step-btn .num {
+      width: 20px; 
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      font-size: 10px;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .step-btn.active .num { 
+      background: #2196f3; 
+      color: #fff;
+      box-shadow: 0 0 8px rgba(33, 150, 243, 0.4);
+    }
+    .step-btn.done .num { 
+      background: #16a34a; 
+      color: #fff; 
+    }
+
+    .ref-btn {
+      display: flex; 
+      align-items: center; 
+      gap: 8px;
+      padding: 8px 14px;
+      margin: 2px 8px;
+      cursor: pointer;
+      font-size: 12px;
+      color: #a8c5e0;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+    }
+    .ref-btn:hover { 
+      color: #fff; 
+      background: rgba(255,255,255,0.08); 
+      padding-left: 16px;
+    }
+
+    /* ── MAIN ── */
+    #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+    #topbar {
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      background: var(--bg);
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .topbar-left { 
+      display: flex; 
+      align-items: center; 
+      gap: 14px;
+    }
+
+    .live-badge {
+      background: linear-gradient(135deg, #078546 0%, #079b13 100%);
+      color: #fff;
+      font-size: 11px; 
+      font-weight: 700;
+      padding: 5px 10px; 
+      border-radius: 6px; 
+      letter-spacing: 0.5px;
+      animation: pulse 2s infinite;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.65} }
+
+    .step-label { 
+      font-size: 15px; 
+      font-weight: 600; 
+      color: var(--text);
+    }
+    .step-sub   { 
+      font-size: 12px; 
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .nav-btns { 
+      display: flex; 
+      gap: 10px; 
+    }
+    .nav-btn {
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-btn:hover { 
+      background: var(--bg3);
+      border-color: var(--muted);
+    }
+    .nav-btn.primary { 
+      background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+      color: #fff; 
+      border-color: #2196f3;
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.25);
+    }
+    .nav-btn.primary:hover { 
+      background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .progress-bar { 
+      height: 3px; 
+      background: var(--border); 
+      flex-shrink: 0;
+    }
+    .progress-fill { 
+      height: 100%; 
+      background: linear-gradient(90deg, #2196f3 0%, #1976d2 100%);
+      transition: width 0.3s ease; 
+    }
+
+    #content { 
+      flex: 1; 
+      overflow-y: auto; 
+      padding: 32px 40px;
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    /* ── CONTENT COMPONENTS ── */
+    .step-title { 
+      font-size: 24px; 
+      font-weight: 700; 
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .step-desc  { 
+      font-size: 14px; 
+      color: var(--text-secondary);
+      margin-bottom: 24px; 
+      line-height: 1.6;
+    }
+
+    .script-block {
+      background: linear-gradient(135deg, #f0f7ff 0%, #f5f9ff 100%);
+      border: 1px solid #e0ebf7;
+      color: var(--text);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid #2196f3;
+    }
+    .script-block p {
+      margin-bottom: 12px;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+    .script-block ul {
+      margin: 12px 0 12px 20px;
+    }
+    .script-block li {
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    .script-block strong {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .script-block .lbl {
+      font-size: 11px; 
+      font-weight: 700;
+      color: #1565c0; 
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .script-block p { 
+      font-size: 13px; 
+      line-height: 1.65; 
+      color: var(--text-secondary);
+    }
+    .script-block p + p { margin-top: 8px; }
+    .script-block .hl { 
+      color: #2196f3; 
+      font-weight: 600; 
+      background: rgba(33, 150, 243, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .tip-block {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef8e7 100%);
+      border-left: 4px solid var(--amber);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #92400e;
+      line-height: 1.6;
+      box-shadow: var(--shadow-sm);
+    }
+    .tip-block strong { 
+      display: block; 
+      margin-bottom: 4px; 
+      font-size: 12px; 
+      letter-spacing: 0.3px;
+      color: #b45309;
+    }
+
+    .ok-block {
+      background: linear-gradient(135deg, #f0fdf4 0%, #e8fce8 100%);
+      border-left: 4px solid var(--green);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #14532d;
+      line-height: 1.6;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .checklist {
+      list-style: none;
+      margin-bottom: 18px;
+      background: var(--bg2);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13px;
+      color: var(--text);
+    }
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      background: var(--bg);
+    }
+    .check-box:hover {
+      border-color: #2196f3;
+      background: rgba(33, 150, 243, 0.05);
+    }
+    .check-box.checked {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: white;
+      box-shadow: 0 0 8px rgba(22, 163, 74, 0.3);
+    }
+
+    .warn-block {
+      background: linear-gradient(135deg, #fef2f2 0%, #fee8e8 100%);
+      border-left: 4px solid var(--red);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #7f1d1d;
+      line-height: 1.6;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-divider {
+      font-size: 11px; 
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 28px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* Form fields */
+    .info-card { 
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md); 
+      padding: 14px; 
+      box-shadow: var(--shadow-sm);
+    }
+    .info-card .ic-label { 
+      font-size: 12px; 
+      color: var(--text-secondary);
+      margin-bottom: 6px; 
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .info-card input,
+    .info-card select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .info-card input:focus,
+    .info-card select:focus { 
+      border-color: #2196f3;
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    }
+
+    /* SEP list */
+    .sep-list { 
+      list-style: none; 
+      margin-bottom: 16px;
+    }
+    .sep-list li {
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px; 
+      color: var(--text);
+      cursor: pointer; 
+      transition: all 0.15s ease;
+      background: var(--bg2);
+    }
+    .sep-list li:hover    { 
+      background: var(--bg3);
+      border-color: #2196f3;
+      padding-left: 14px;
+    }
+    .sep-list li.selected { 
+      background: #dbeafe; 
+      border-color: #2196f3; 
+      color: #1e3a5f;
+      font-weight: 600;
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    }
+
+    /* Consent items */
+    .consent-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 14px;
+      background: var(--bg2);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .consent-item:hover {
+      border-color: #2196f3;
+      box-shadow: var(--shadow-md);
+    }
+    .consent-item .c-num { 
+      font-size: 11px; 
+      font-weight: 700; 
+      color: #2196f3;
+      margin-bottom: 8px; 
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .consent-item p { 
+      font-size: 13px; 
+      color: var(--text-secondary);
+      line-height: 1.7; 
+      margin-bottom: 12px; 
+    }
+    .yes-btn {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      color: #fff;
+      border: none; 
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 12px; 
+      font-weight: 600;
+      cursor: pointer; 
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+    }
+    .yes-btn:hover { 
+      background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+      transform: translateY(-1px);
+    }
+    .yes-btn.got { 
+      background: linear-gradient(135deg, #dcfce7 0%, #c6f6d5 100%);
+      color: #14532d; 
+      cursor: default;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Complete */
+    .complete-card { 
+      text-align: center; 
+      padding: 60px 40px;
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid #dbeafe;
+    }
+    .complete-card .big-check {
+      width: 80px; 
+      height: 80px;
+      background: linear-gradient(135deg, #dcfce7 0%, #c6f6d5 100%);
+      border-radius: 50%;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 40px;
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.2);
+    }
+    .complete-card h2 { 
+      font-size: 28px; 
+      font-weight: 700; 
+      color: var(--text); 
+      margin-bottom: 8px;
+    }
+    .complete-card p  { 
+      font-size: 14px; 
+      color: var(--text-secondary);
+      max-width: 420px; 
+      margin: 0 auto 28px; 
+      line-height: 1.7;
+    }
+
+    .logo-container {
+      padding: 12px;
+      text-align: center;
+    }
+    .logo {
+      max-width: 100%;
+      height: auto;
+      max-height: 90px;
+    }
+
+    .rebuttal-item {
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .rebuttal-item:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #2196f3;
+    }
+    .rebuttal-header {
+      padding: 14px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg2);
+      transition: all 0.15s ease;
+      color: var(--text);
+    }
+    .rebuttal-header:hover {
+      background: var(--bg3);
+    }
+    .rebuttal-body {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      display: none;
+    }
+    .rebuttal-body.show {
+      display: block;
+    }
+    .rebuttal-toggle {
+      font-size: 12px;
+      color: var(--muted);
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+    .rebuttal-item.active .rebuttal-toggle {
+      transform: rotate(180deg);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg2);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
+
+ </style>
+</head>
+<body>
+
+<div id="app">
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sidebar-header">
+     <div class="logo-container">
+<img src="./logo.png" class="logo">
+</div>
+      <h1>EMA Marketing</h1>
+      <p>ACA Enrollment Script</p>
+    </div>
+    <button class="new-call-btn" onclick="newCall()">↺ New Call</button>
+    <div class="sidebar-section">Call Steps</div>
+    <div id="step-list"></div>
+    <div class="sidebar-section" style="margin-top:12px;">Reference</div>
+    <div class="ref-btn" onclick="goRef('sep')">⚡ SEP Events</div>
+    <div class="ref-btn" onclick="goRef('consent')">📋 Rebuttals</div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+    <div id="topbar">
+      <div class="topbar-left">
+        <span class="live-badge">● LIVE</span>
+        <div>
+          <div class="step-label" id="top-label">Opening</div>
+          <div class="step-sub"  id="top-sub">Step 1 of 10</div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="nav-btn" onclick="prevStep()">← Back</button>
+        <button class="nav-btn primary" onclick="nextStep()">Next →</button>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+    <div id="content"></div>
+  </div>
+</div>
+
+<script>
+  /* ── STATE ── */
+  const STEPS = [
+    { id:0, label:'Opening',     title:'Opening Script',                desc:'Greet the caller, verify Medicare/Medicaid status, and confirm they are calling about a health subsidy.' },
+    { id:1, label:'SEP Check',   title:'SEP Qualification',             desc:'Confirm a qualifying life event within the last 60 days to enroll outside Open Enrollment.' },
+    { id:2, label:'Client Info', title:'Qualifying Information',         desc:'Gather zip code, DOB, estimated income, dependents, doctors, and medications.' },
+    { id:3, label:'Plan Match',  title:'Health Subsidy & Plan',          desc:'Communicate their subsidy amount and recommend the best-fit plan.' },
+    { id:4, label:'Benefits',    title:'Explanation of Benefits',        desc:'Walk through all copays, deductibles, and plan incentives.' },
+    { id:5, label:'Verification',title:'Verification & Application',     desc:'Confirm all client details for the Marketplace application.' },
+    { id:6, label:'Consent',     title:'Verbal Consent',                 desc:'Obtain verbal YES on all 6 consent points before submitting enrollment.' },
+    { id:7, label:'E-Sign',      title:'E-Signature',                    desc:'Send e-sign documents to customer for their signature.' },
+    { id:8, label:'Final Notes', title:'Final Notes & Disclosure',       desc:'Share post-enrollment disclosures, agent compensation notice, and next steps.' },
+    { id:9, label:'Complete',    title:'Enrollment Complete',            desc:'Congratulate the client and confirm next steps.' },
+  ];
+
+  let currentStep    = 0;
+  let completedSteps = new Set();
+  let checkedItems   = {};
+  let consentGiven   = {};
+  let inRef          = null;
+
+  /* ── NAVIGATION ── */
+  function goStep(id) {
+    if (currentStep >= 0 && currentStep < STEPS.length) completedSteps.add(currentStep);
+    currentStep = id;
+    inRef = null;
+    renderSidebar();
+    updateTopbar();
+    renderContent();
+    // Scroll to top of content area
+    const contentDiv = document.getElementById('content');
+    if (contentDiv) {
+      contentDiv.scrollTop = 0;
+    }
+  }
+  function nextStep() { if (currentStep < STEPS.length - 1) goStep(currentStep + 1); }
+  function prevStep() {
+    if (inRef) { inRef = null; renderContent(); const contentDiv = document.getElementById('content'); if (contentDiv) contentDiv.scrollTop = 0; return; }
+    if (currentStep > 0) { completedSteps.delete(currentStep); currentStep--; renderSidebar(); updateTopbar(); renderContent(); const contentDiv = document.getElementById('content'); if (contentDiv) contentDiv.scrollTop = 0; }
+  }
+  function newCall() {
+    currentStep = 0; completedSteps.clear();
+    checkedItems = {}; consentGiven = {}; inRef = null;
+    renderSidebar(); updateTopbar(); renderContent();
+    const contentDiv = document.getElementById('content');
+    if (contentDiv) {
+      contentDiv.scrollTop = 0;
+    }
+  }
+  function goRef(name) { inRef = name; renderContent(); const contentDiv = document.getElementById('content'); if (contentDiv) contentDiv.scrollTop = 0; }
+
+  /* ── UI HELPERS ── */
+  function check(id) {
+    checkedItems[id] = !checkedItems[id];
+    const box = document.querySelector(`[data-check="${id}"]`);
+    if (box) { box.classList.toggle('checked', checkedItems[id]); box.textContent = checkedItems[id] ? '✓' : ''; }
+  }
+  function giveConsent(n) {
+    consentGiven[n] = true;
+    const btn = document.querySelector(`[data-consent="${n}"]`);
+    if (btn) { btn.textContent = '✓ YES — Confirmed'; btn.classList.add('got'); }
+  }
+  function selectSep(el) {
+    document.querySelectorAll('.sep-list li').forEach(li => li.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+  function toggleElite(id) {
+    const item = document.querySelector(`[data-rebuttal-id="${id}"]`);
+    if (item) {
+      item.classList.toggle('active');
+      const body = item.querySelector(`[data-rebuttal="${id}"]`);
+      if (body) body.classList.toggle('show');
+    }
+  }
+
+  function renderSidebar() {
+    document.getElementById('step-list').innerHTML = STEPS.map(s => {
+      const isDone   = completedSteps.has(s.id) && s.id !== currentStep;
+      const isActive = s.id === currentStep;
+      return `
+        <div class="step-btn ${isActive?'active':''} ${isDone?'done':''}" onclick="goStep(${s.id})">
+          <div class="num">${isDone ? '✓' : s.id + 1}</div>
+          <span>${s.label}</span>
+        </div>`;
+    }).join('');
+  }
+
+  function updateTopbar() {
+    const s = STEPS[currentStep] || {};
+    document.getElementById('top-label').textContent = inRef ? 'Quick Reference' : s.title || '';
+    document.getElementById('top-sub').textContent   = `Step ${currentStep + 1} of ${STEPS.length}`;
+    document.getElementById('prog').style.width      = `${((currentStep + 1) / STEPS.length) * 100}%`;
+  }
+
+  /* ── RENDER CONTENT ── */
+  function renderContent() {
+    if (inRef === 'sep')     { renderSepRef();     return; }
+    if (inRef === 'consent') { renderConsentRef(); return; }
+    const renders = [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9];
+    document.getElementById('content').innerHTML = renders[currentStep] ? renders[currentStep]() : '';
+  }
+
+  /* ── STEP RENDERERS ── */
+  function chk(id, label) {
+    return `<li><div class="check-box ${checkedItems[id]?'checked':''}" data-check="${id}" onclick="check('${id}')">${checkedItems[id]?'✓':''}</div>${label}</li>`;
+  }
+
+  function r0() {
+    return `
+      <div class="step-title">Opening Script</div>
+      <div class="step-desc">Greet the caller professionally, verify their insurance status, and confirm the reason for calling.</div>
+      <div class="script-block">
+        <div class="lbl">AGENT SAYS</div>
+        <p>"Thank you for calling <span class="hl">EMA Marketing</span>. Do you currently have Medicare, Medicaid, employer insurance, or VA coverage?"</p>
+      </div>
+      <div class="warn-block"><strong>⚠ If YES to any coverage</strong> — Politely end the call. They do not qualify for an ACA plan.</div>
+      <div class="script-block">
+        <div class="lbl">AGENT SAYS</div>
+        <p>"Are you calling to see if you qualify for a health subsidy?"</p>
+      </div>
+      <div class="ok-block">If YES → continue below</div>
+      <div class="script-block">
+        <div class="lbl">AGENT SAYS — RECORDED LINE DISCLOSURE</div>
+        <p>"Perfect! Let's get you qualified. Please note: <span class="hl">this call is being recorded</span> for quality and training purposes. My name is <span class="hl">[Agent's Name]</span>, and I'm here to help you explore your health insurance options today. Is that okay with you?"</p>
+      </div>
+      <div class="tip-block"><strong>💡 TIP</strong> Be warm and welcoming. The first 30 seconds set the tone!</div>
+      <div class="section-divider">Pre-call checklist</div>
+      <ul class="checklist">
+  ${chk('op1', 'Introduced yourself & company')}
+  ${chk('op2', 'Confirmed recorded line')}
+  ${chk('op3', 'Explained purpose of call')}
+  ${chk('op4', 'Confirmed availability')}
+  ${chk('op5', 'Built rapport')}
+  ${chk('op6', 'Transitioned to qualification')}
+</ul>`;
+  }
+
+  function r1() {
+    const events = [
+      'Lost health coverage (Medicaid, employer, another health plan)',
+      'Moved to a new zip code, county, or state',
+      'Got married',
+      'Got divorced or legally separated',
+      'Had a baby, adopted a child, or gained a dependent',
+      'Recently left incarceration',
+      'Immigration status changed — now lawfully present',
+      'Lost eligibility for Medicaid or CHIP',
+      'Change in household size or tax household',
+      'Another Marketplace-recognized qualifying life event',
+    ];
+    return `
+      <div class="step-title">SEP Qualification</div>
+      <div class="step-desc">Confirm a qualifying life event in the last 60 days. Without this, enrollment outside Open Enrollment is not possible.</div>
+      <div class="script-block">
+        <div class="lbl">AGENT SAYS</div>
+        <p>"In order to qualify for an ACA plan outside of Open Enrollment, I need to confirm whether you've had a recent life qualifying event. Have you experienced any life changes in the last 60 days?"</p>
+      </div>
+      <div class="warn-block"><strong>⚠ If NO</strong> — Cannot enroll outside of Open Enrollment. End the call and advise them of next OEP dates.</div>
+      <div class="section-divider">Select the applicable life event</div>
+      <ul class="sep-list">${events.map(e => `<li onclick="selectSep(this)">${e}</li>`).join('')}</ul>
+      <div class="script-block">
+        <div class="lbl">FOLLOW-UP QUESTIONS</div>
+        <p>1. "What was the <span class="hl">date of that event</span>?"</p>
+        <p>2. "Do you have any documentation to support that event if the Marketplace requests it?"</p>
+        <p>3. "Just to confirm, this event happened <span class="hl">within the last 60 days</span>, correct?"</p>
+      </div>
+      <div class="tip-block"><strong>💡 TIP</strong> Write down the exact event and date — you'll reference it again during the verbal consent step when stating the SEP used.</div>`;
+  }
+
+   function r2() {
+  return `
+    <div class="step-title">Qualifying Information</div>
+    <div class="step-desc">Ask the following questions and confirm responses with the client.</div>
+
+    <div class="script-block">
+      <div class="lbl">AGENT QUESTIONS</div>
+
+      <p>"May I have your zip code to start?"</p>
+      <p class="note">(Verify county — if no plan is available, end the call)</p>
+
+      <p>"What is your date of birth?"</p>
+
+      <p>"Is your estimated income for 2026 around <span class="hl">$21,000</span>? Yes or No."</p>
+      <p class="note">(If higher, ask for the correct amount)</p>
+
+      <p>"When filing your taxes, do you claim any dependents?"</p>
+
+      <p>"Are you currently seeing any specific doctors?"</p>
+      <p class="note">(If no, proceed)</p>
+
+      <p>"Are you on any specific medications that are expensive for you?"</p>
+      <p class="note">(If yes: ask for name and dosage)</p>
+    </div>
+
+    <div class="section-divider">Checklist</div>
+<ul class="checklist">
+  ${chk('q1', 'ZIP Code verified')}
+  ${chk('q2', 'County confirmed')}
+  ${chk('q3', 'Date of Birth collected')}
+  ${chk('q4', 'Income estimated')}
+  ${chk('q5', 'Dependents confirmed')}
+  ${chk('q6', 'Doctors & medications reviewed')}
+</ul>`;
+}
+
+ 
+    function r3() {
+  return `
+    <div class="step-title">Health Subsidy & Plan Recommendation</div>
+    <div class="step-desc">Present eligibility, subsidy, and recommended plan clearly and confidently.</div>
+
+    <div class="script-block">
+      <div class="lbl">AGENT SCRIPT</div>
+
+      <p>Great! Based on the information you provided, I see that you qualify for a 
+      <span class="hl">$[Subsidy Amount]</span> monthly health subsidy.</p>
+
+      <p>This will help bring your premium down to 
+      <span class="hl">$0</span>.</p>
+
+      <p>Based on your eligibility, we recommend 
+      <span class="hl">[Carrier Name + Plan Name]</span>.</p>
+
+      <p>Let me walk you through the details of this plan.</p>
+    </div>
+
+    <div class="warn-block">
+      <strong>Delivery Tip:</strong> Pause briefly after stating the $0 premium to let it land.
+    </div>
+
+    <div class="section-divider">Checklist</div>
+<ul class="checklist">
+  ${chk('pm1', 'Doctors confirmed in-network')}
+  ${chk('pm2', 'Prescriptions checked')}
+  ${chk('pm3', 'Premium reviewed')}
+  ${chk('pm4', 'Deductible explained')}
+  ${chk('pm5', 'Hospitals verified')}
+  ${chk('pm6', 'Client agrees with plan')}
+</ul>`;
+}
+
+  function r4() {
+  return `
+    <div class="step-title">Explanation of Benefits</div>
+    <div class="step-desc">Clearly explain plan benefits and confirm understanding throughout.</div>
+
+    <div class="script-block">
+      <div class="lbl">AGENT SCRIPT</div>
+
+      <p>I'll go over the key details of the plan, then we can get you enrolled, okay?</p>
+      <p class="note">(Wait for confirmation)</p>
+
+      <p><strong>Preventative Care:</strong> This plan covers preventative services at 
+      <span class="hl">100%</span> — including check-ups, screenings, and immunizations.</p>
+      <p>Does that make sense?</p>
+      <p class="note">(Wait for confirmation)</p>
+
+      <p><strong>Deductible:</strong> <span class="hl">$[Deductible Amount]</span></p>
+
+      <p><strong>Maximum Out-of-Pocket:</strong> <span class="hl">$[Max Out-of-Pocket]</span></p>
+
+      <p><strong>Primary Care Visit:</strong> <span class="hl">$[Copay]</span></p>
+
+      <p><strong>Specialist Visit:</strong> <span class="hl">$[Copay]</span></p>
+
+      <p><strong>Generic Prescriptions:</strong> <span class="hl">$[Copay]</span></p>
+
+      <p><strong>Brand-Name Prescriptions:</strong> <span class="hl">$[Copay]</span></p>
+
+      <p>We always recommend requesting generic medications when available to help save on costs.</p>
+      <p>Does that make sense?</p>
+      <p class="note">(Wait for confirmation)</p>
+
+      <p><strong>Additional Benefits:</strong> Many carriers offer incentives and cash-back rewards.</p>
+      <p>Once we complete your enrollment, you'll receive a welcome packet with full details.</p>
+    </div>
+
+    <div class="warn-block">
+      <strong>Tip:</strong> Slow down here. This is where trust is built and objections are prevented.
+    </div>
+
+    <div class="section-divider">Checklist</div>
+<ul class="checklist">
+  ${chk('b1', 'Premium explained')}
+  ${chk('b2', 'Deductible explained')}
+  ${chk('b3', 'Copays reviewed')}
+  ${chk('b4', 'Prescriptions covered')}
+  ${chk('b5', 'Client understands plan usage')}
+</ul>`;
+} 
+
+function r5() {
+  return `
+    <div class="step-title">Verification & Application Information</div>
+    <div class="step-desc">Confirm all details clearly before submitting the application.</div>
+
+    <div class="script-block">
+      <div class="lbl">AGENT SCRIPT</div>
+
+      <p>I'll now quickly verify your information to make sure everything is accurate for the application.</p>
+      <p>Please confirm the following:</p>
+
+      <p><strong>Full Name:</strong> Is this exactly how it appears on your Social Security card?</p>
+
+      <p><strong>Address:</strong> Please confirm your current address.</p>
+
+      <p><strong>Citizenship Status:</strong> Are you a U.S. citizen?</p>
+      <p class="note">(If no: collect appropriate documentation details)</p>
+
+      <p><strong>Social Security Number:</strong></p>
+      <p class="note">(If hesitant: explain this is required for federal marketplace enrollment)</p>
+
+      <p><strong>Employment Information:</strong></p>
+      <p>Who is your current employer?</p>
+      <p>What is the best phone number for your employer?</p>
+
+      <p class="note">(If no employer, ask the following:)</p>
+      <p>What is your current source of income?</p>
+
+      <p class="note">(If applicable:)</p>
+      <p>• If self-employed: What type of work do you do?</p>
+      <p>• If recently unemployed: Who was your previous employer?</p>
+      <p>• If receiving unemployment: What is your monthly amount?</p>
+      <p>• If on disability: Confirm timeframe (must be under 2 years)</p>
+      <p>• If retired: What is your retirement income amount?</p>
+
+      <p><strong>Dependents:</strong></p>
+      <p>Will any dependents be included in this application?</p>
+      <p class="note">(If yes: collect names, DOB, gender, SSN, and income)</p>
+
+      <p><strong>Email Address:</strong></p>
+      <p>Please provide the best email to send your plan documents.</p>
+    </div>
+
+    <div class="warn-block">
+      <strong>Tip:</strong> Keep control of the call here — move confidently and avoid long pauses.
+    </div>
+
+    <div class="section-divider">Checklist</div>
+<ul class="checklist">
+  ${chk('v1', 'Name verified')}
+  ${chk('v2', 'Address confirmed')}
+  ${chk('v3', 'Citizenship verified')}
+  ${chk('v4', 'SSN collected')}
+  ${chk('v5', 'Income source confirmed')}
+  ${chk('v6', 'Email confirmed')}
+</ul>`;
+}
+  
+
+  function r6() {
+    const consents = [
+      { n:1, label:'Enrollment Consent',          text:`On today, [say todays date] I hereby provide my verbal consent and authorize [EMA
+marketing] to enroll me and any identified individuals into the ACA Plan provided to
+me through the Marketplace by using SEP [State SEP used. i.e., Loss of qualifying
+health coverage/change of household size/change in primary place of living, etc.].
+Please say ‘YES’ to confirm.` },
+      { n:2, label:'Income Attestation',           text:`You attest that your estimated income for 2026 is correct. Should your income
+change, you will notify us. If we are required to verify your income, you may be
+contacted for documentation. To confirm your understanding please say “YES.”` },
+      { n:3, label:'Policy Updates',               text:`Do we have your permission to update your policy as needed and assist with
+submitting required documentation such as income letters or proof of identity? Please
+say “YES” to confirm.` },
+      { n:4, label:'Plan Changes / Cancellations', text:`If your current plan is canceled or discontinued by the carrier, do you authorize us to
+switch you to a plan that closely resembles your coverage? Please say “YES.”` },
+      { n:5, label:'Renewal Authorization',         text:`Would you authorize us to auto-renew your health insurance policy and remain the
+agent of record to prevent any lapse in coverage? Please say “YES.”` },
+      { n:6, label:'Communication Consent',         text:`We may need to contact you about updates or new policies. Do you consent to
+receive informational and marketing text messages and emails massage from [EMA
+MARKETING] to the phone number you provide during this enrollment. data rates
+may apply message frequency may vary. Please confirm by saying “I agree.”` },
+    ];
+    return `
+      <div class="step-title">Verbal Consent & Enrollment Authorization</div>
+      <div class="step-desc">Read each consent item clearly. Mark it confirmed after receiving the verbal YES. All 6 must be confirmed before submitting.</div>
+      <div class="tip-block"><strong>💡 TIP</strong> Speak slowly and clearly — this is a recorded call. Do not rush through any consent items.</div>
+      ${consents.map(c => `
+        <div class="consent-item">
+          <div class="c-num">CONSENT ${c.n} — ${c.label}</div>
+          <p>${c.text}</p>
+          <button class="yes-btn ${consentGiven[c.n]?'got':''}" data-consent="${c.n}" onclick="giveConsent(${c.n})">
+            ${consentGiven[c.n] ? '✓ YES — Confirmed' : 'Mark as YES Received'}
+          </button>
+        </div>`).join('')}`;
+  }
+  
+function r7() {
+  return `
+    <div class="step-title">E-Sign Consent (Post-Enrollment / Pre-TPV)</div>
+    <div class="step-desc">Guide the client through reviewing and signing the e-sign document before TPV.</div>
+
+    <div class="script-block">
+      <div class="lbl">🟢 Primary Version (Recommended)</div>
+      <p>Before we finalize everything and bring on the verification specialist, I'm going to send you a quick e-sign document.</p>
+      <p>This document summarizes the information we just reviewed, including your application details and the plan you selected today. It also provides your authorization for me and Agency Pro, LLC to submit your enrollment on your behalf to the marketplace.</p>
+      <p>Please take a moment to review it carefully and complete the signature where indicated. I'll stay on the line with you while you do that.</p>
+    </div>
+
+    <div class="script-block">
+      <div class="lbl">⚡ Short Version</div>
+      <p>I'm sending you a quick e-sign document now.</p>
+      <p>It reviews your application and plan details and gives us permission to submit everything on your behalf.</p>
+      <p>Go ahead and open it, review, and sign—I'll stay on the line.</p>
+    </div>
+
+    <div class="script-block">
+      <div class="lbl">🟡 Guided Version</div>
+      <p>You should receive it by text or email momentarily.</p>
+      <p>Open the link labeled E-Signature from Elite Health (you may see Gorilla Docs as the provider).</p>
+      <p>Please review everything to make sure it’s accurate, you will complete (4) signed
+documents. As you scroll down to the bottom of each page, you will sign the
+document with your finger. It doesn't have to be perfect, just that you know it's your
+signature. Once signed, hit submit, and you will be brought to the top of the next
+page. Complete this process (4) times.</p>
+      <p>Once finished, let me know and we'll bring on the verification specialist.</p>
+    </div>
+
+    <div class="script-block">
+      <div class="lbl">🟢 Smooth & Direct</div>
+      <p>I'm going to send the e-sign document now. Would you prefer text or email?</p>
+      <p>Text is usually the fastest option since you can open and sign it immediately on your phone, but
+just let me know what works best for you.</p>
+    </div>
+
+<div class="warn-block">
+      <strong>🔴 Objection Handling</strong>
+      <p><strong>"What am I signing?"</strong> This confirms your application details and gives us permission to submit it.</p>
+      <p><strong>"Is this locking me in?"</strong> No, this authorizes submission. You'll still complete verification before finalizing.</p>
+      <p><strong>"Do I need to read it?"</strong> Yes, please review to ensure everything is accurate.</p>
+    </div>
+
+    <ul class="checklist">
+  ${chk('fs1', 'Application completed')}
+  ${chk('fs2', 'Client reviewed info')}
+  ${chk('fs3', 'eSign explained')}
+  ${chk('fs4', 'Signature completed')}
+  ${chk('fs5', 'Confirmation received')}
+  ${chk('fs6', 'Next steps explained')}
+</ul>`;
+}
+
+  function r8() {
+    return `
+      <div class="step-title">Final Notes & Disclosures</div>
+      <div class="step-desc">Read the full disclosure to the client before ending the call. This is federally required.</div>
+      <div class="script-block">
+        <div class="lbl">AGENT READS — REQUIRED DISCLOSURE</div>
+        <p>"Once your application is submitted, it may take some time for the carrier to review and confirm your eligibility. You will receive a copy of your new plan's terms and benefits once your enrollment is confirmed by the marketplace."</p>
+        <p>"Please note: as your sales agent, my agency will receive compensation from the carrier for the plan you are enrolled in. This compensation is paid based on your enrollment in a marketplace plan and does not increase your premium costs."</p>
+      </div>
+      <div class="warn-block"><strong>⚠ Pending Documentation</strong> — "If any documentation is pending, please be sure to send it promptly to avoid any coverage delays."</div>
+      <div class="section-divider">Post-call checklist</div>
+      <ul class="checklist">
+    ${chk('dc1', 'Disclosure read completely')}
+    ${chk('dc2', 'Client confirmed understanding')}
+    ${chk('dc3', 'Documentation deadline provided')}
+    ${chk('dc4', 'Follow-up timeline explained')}
+    ${chk('dc5', 'Contact information confirmed')}
+    ${chk('dc6', 'Client thanked professionally')}
+  </ul>`;
+  }
+
+  function r9() {
+    return `
+      <div class="complete-card">
+        <div class="big-check">🎉</div>
+        <h2>Enrollment Complete!</h2>
+        <p>Congratulate the client and wrap up the call professionally.</p>
+        <div class="script-block" style="text-align:left; margin-top:28px; max-width:520px; margin-left:auto; margin-right:auto;">
+          <div class="lbl">AGENT SAYS — CLOSING</div>
+          <p>"Congratulations, <span class="hl">[Client Name]</span>, on taking the first step toward securing health coverage with EMA Marketing! We'll finalize your application and keep you informed every step of the way. If you have any questions before your verification call, please don't hesitate to reach out. Thank you for choosing us!"</p>
+        </div>
+        <div class="ok-block" style="text-align:left; max-width:520px; margin:16px auto 0;">
+          ✓ Application submitted to Marketplace<br>
+          ✓ Welcome packet will be sent to client's home address <br>
+          ✓ Client has your contact information as agent of record
+        </div>
+        <button class="nav-btn primary" style="margin-top:28px; padding:10px 36px; font-size:13px;" onclick="newCall()">↺ Start New Call</button>
+      </div>`;
+  }
+
+  /* ── REFERENCE PAGES ── */
+  function renderSepRef() {
+    const events = [
+      'Lost health coverage (Medicaid, employer plan, CHIP, student plan)',
+      'Moved to a new zip code, county, or state',
+      'Got married',
+      'Got divorced or legally separated',
+      'Had a baby, adopted a child, or gained a dependent',
+      'Recently left incarceration',
+      'Immigration / citizenship status changed — now lawfully present',
+      'Lost eligibility for Medicaid or CHIP',
+      'Change in household size or tax filing household',
+      'Another Marketplace-recognized qualifying life event',
+    ];
+    document.getElementById('content').innerHTML = `
+      <div class="step-title">SEP Events Quick Reference</div>
+      <div class="step-desc">All qualifying life events that allow enrollment outside Open Enrollment. The event must have occurred within the last 60 days.</div>
+      <ul class="sep-list" style="margin-top:16px">
+        ${events.map((e, i) => `<li><strong style="color:#2196f3; margin-right:8px">${i+1}.</strong>${e}</li>`).join('')}
+      </ul>
+      <div class="tip-block"><strong>💡 REMEMBER</strong> Always ask: (1) What was the date? (2) Do they have documentation? (3) Was it within 60 days?</div>
+      <button class="nav-btn" style="margin-top:16px" onclick="inRef=null;renderContent()">← Back to Script</button>`;
+  }
+
+  function renderConsentRef() {
+    const rebuttals = [
+      { id:'rb1', title: 'Already have insurance',
+        script: 'Totally understand — most people I speak with already have coverage. What we do is check if you qualify for better benefits or lower costs. It only takes a minute to compare.' },
+      
+      { id:'rb2', title: 'Just looking / browsing',
+        script: 'That\'s perfect — this is exactly where you want to start. Let\'s quickly see what you qualify for so you have real numbers to compare.' },
+      
+      { id:'rb3', title: 'Doesn\'t want to give info',
+        script: 'I completely understand. This is only to check eligibility — nothing is submitted and nothing changes unless you decide to move forward.' },
+      
+      { id:'rb4', title: 'Too expensive',
+        script: 'A lot of people think that at first, but with subsidies many plans are actually $0 or very low cost. Let\'s check what you qualify for.' },
+      
+      { id:'rb5', title: 'Call back later',
+        script: 'I can definitely follow up, but it only takes about 2 minutes to check your options now so you don\'t miss any savings or deadlines.' },
+    ];
+
+    document.getElementById('content').innerHTML = `
+      <div class="step-title">Common Rebuttals</div>
+      <div class="step-desc">Quick responses to handle common objections professionally.</div>
+
+      <div style="margin-top:18px">
+        ${rebuttals.map(r => `
+          <div class="rebuttal-item" data-rebuttal-id="${r.id}">
+            <div class="rebuttal-header" onclick="toggleElite('${r.id}')">
+              <span>${r.title}</span>
+              <span class="rebuttal-toggle">▼</span>
+            </div>
+            <div class="rebuttal-body" data-rebuttal="${r.id}">
+              <strong>Your Response:</strong><br/>
+              <p style="margin-top:8px">"${r.script}"</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <button class="nav-btn" style="margin-top:16px" onclick="inRef=null;renderContent()">← Back to Script</button>`;
+  }
+
+  /* Initialize */
+  renderSidebar();
+  updateTopbar();
+  renderContent();
+</script>
+
+</body>
+</html>
