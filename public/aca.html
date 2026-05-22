@@ -725,7 +725,10 @@
           <div class="step-sub"  id="top-sub">Step 1 of 10</div>
         </div>
       </div>
-      
+     <div class="nav-btns">
+        <button class="nav-btn" onclick="prevStep()">← Back</button>
+        <button class="nav-btn primary" onclick="nextStep()">Next →</button>
+      </div> 
     </div>
     <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
     <div id="content"></div>
@@ -1274,10 +1277,7 @@ just let me know what works best for you.</p>
         `).join('')}
       </div>
 
-      <div class="nav-btns">
-        <button class="nav-btn" onclick="prevStep()">← Back</button>
-        <button class="nav-btn primary" onclick="nextStep()">Next →</button>
-      </div>
+      
       <button class="nav-btn" style="margin-top:16px" onclick="inRef=null;renderContent()">← Back to Script</button>`;
   }
 
