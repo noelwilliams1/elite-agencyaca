@@ -1,17 +1,7 @@
-function App() {
+export default function App() {
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <iframe
-        src="/aca.html"
-        title="ACA Script App"
-        style={{
-          width: "100%",
-          height: "100%",
-          border: "none"
-        }}
-      />
+    <div style={{ padding: "50px", background: "white" }}>
+      <h1>IT WORKS ✅</h1>
     </div>
   );
 }
-
-export default App;
